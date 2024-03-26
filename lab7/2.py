@@ -9,7 +9,7 @@ pygame.mixer.music.play(-1)
 W, H = 500, 300
 sc = pygame.display.set_mode((W, H))
 
-s = pygame.mixer.music.Sound('audio/2.mp3')
+s = pygame.mixer.Sound('audio/2.mp3')
 flPause = False
 vol = 1.0
 
