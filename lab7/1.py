@@ -17,9 +17,9 @@ pygame.display.set_caption('Mouse')
 img_main = pygame.image.load('images\\mainclock.png')
 img_main = pygame.transform.scale(img_main, (screen_w, screen_h))
 img_left = pygame.image.load('images\\leftarm.png')
-img_left = pygame.transform.scale(img_left, (500, 300))
+img_left = pygame.transform.scale(img_left, (400, 200))
 img_right = pygame.image.load('images\\rightarm.png')
-img_right = pygame.transform.scale(img_right, (500, 300))
+img_right = pygame.transform.scale(img_right, (400, 200))
 
 def print_img_by_degree(image, degree): 
     image = pygame.transform.rotate(image, degree) 

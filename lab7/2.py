@@ -1,63 +1,36 @@
 import pygame
-import os
+pygame.mixer.pre_init(44100, -16, 1, 512)
 
-class MusicPlayer:
-    def __init__(self):
-        pygame.init()
-        pygame.mixer.init()
-        self.playlist = []  
-        self.current_index = 0  
-        self.playing = False  
-
-    def load_playlist(self, directory):
-        
-        self.playlist = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.mp3')]
-
-    def play(self):
-        
-        pygame.mixer.music.load(self.playlist[self.current_index])
-        pygame.mixer.music.play()
-        self.playing = True
-
-    def stop(self):
-        
-        pygame.mixer.music.stop()
-        self.playing = False
-
-    def next_song(self):
-        
-        self.current_index = (self.current_index + 1) % len(self.playlist)
-        self.play()
-
-    def previous_song(self):
-        
-        self.current_index = (self.current_index - 1) % len(self.playlist)
-        self.play()
-
-player = MusicPlayer()
-
-player.load_playlist('music\\1.mp3')
 
 pygame.init()
+pygame.mixer.music.load('audio/1.mp3')
+pygame.mixer.music.play(-1)
 
+W, H = 500, 300
+sc = pygame.display.set_mode((W, H))
 
-pygame.key.set_repeat(200, 50)  
+s = pygame.mixer.music.Sound('audio/2.mp3')
+flPause = False
+vol = 1.0
 
-
-running = True
-while running:
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                if player.playing:
-                    player.stop()
+                flPause= not flPause
+                if flPause:
+                    pygame.mixer.music.pause()
                 else:
-                    player.play()
-            elif event.key == pygame.K_RIGHT:
-                player.next_song()
+                    pygame.mixer.music.unpause()
             elif event.key == pygame.K_LEFT:
-                player.previous_song()
+                vol -= 0.1
+                pygame.mixer.music.set_volume(vol)
+            elif event.key == pygame.K_RIGHT:
+                vol += 0.1
+                pygame.mixer.music.set_volume(vol)
+            elif event.key == pygame.K_RETURN:
+                s.play()
 
-pygame.quit()
+
